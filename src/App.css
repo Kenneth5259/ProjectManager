@@ -1,0 +1,13 @@
+.header {
+    display: flex;
+    flex-wrap: wrap;
+    overflow: auto;
+    width: 100vw;
+}
+.header__logo {
+    display: inline;
+
+}
+.header__selector {
+    display: inline;
+}

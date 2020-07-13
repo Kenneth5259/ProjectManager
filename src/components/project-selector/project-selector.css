@@ -2,7 +2,19 @@ ul {
     list-style: none;
     width: 80%;
 }
-.container {
+
+.header{
+    height: 3.5rem;
+}
+
+.logo{
+    max-width: 3rem;
+    position: absolute;
+    left: 0;
+    top: -0.4rem;
+}
+
+.selector {
     text-align: center;
 }
 
@@ -11,17 +23,21 @@ ul {
     padding: 0;
 }
 .project__primary {
-    background-color: #17BEBB;
-    padding: 0.5rem;
+    background-color: #0E7C7B;
+    color: white;
     margin: 0;
 }
 .project__secondary {
+    background-color: #17BEBB;
+    color: white;
     display: flex;
     justify-content: center;
     padding: 0;
     font-size: 1.25rem;
     padding: 0.5rem 0;
     box-shadow: 4px 4px 4px rgba(0,0,0,0.2);
+    margin: 0.5rem 0;
+    z-index: 1;
 }
 
 .project__secondary:hover {

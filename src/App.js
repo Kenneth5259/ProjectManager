@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-
 import Project from './components/project/project';
 import ProjectSelector from './components/project-selector/project-selector';
 
@@ -11,6 +10,14 @@ const testProjects = [
   {
     title: 'Test 2',
     _id: '0000002'
+  },
+  {
+    title: 'Test 3',
+    _id: '0000003'
+  },
+  {
+    title: 'Test 4',
+    _id: '0000004'
   }
 ];
 
@@ -37,7 +44,10 @@ class App extends Component {
   render() {
     return (
       <div>
-        <ProjectSelector selected={this.state.activeProject} projectList={this.state.projects}/>
+        <div className='header'>
+          <ProjectSelector selected={this.state.activeProject} projectList={this.state.projects}/>
+        </div>
+        
         <Project 
           id={this.state.activeProject}
         /> 
