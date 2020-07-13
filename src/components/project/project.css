@@ -1,0 +1,66 @@
+.project {
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+.project__title {
+    text-align: center;
+}
+
+.project__columns {
+    display: flex;
+    flex-direction: row;
+    flex-basis: 100%;
+    flex: 1;
+}
+
+/*Column Specific Styling*/
+
+.column {
+    height: 100vh;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: flex-start;
+    flex: 1;
+    border: 1px solid black;
+}
+.task_row {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    flex: 1;
+    max-height: 2rem;
+    justify-content: center;
+}
+
+.column__title {
+    padding: 1rem;
+    margin: 0;
+    width: 100%;
+    text-align: center;
+    height: 2rem;
+    border-bottom: 1px solid black;
+}
+
+/*Task Specific Styling*/
+
+.task {
+    margin: 1rem;
+    box-shadow: 4px 4px 4px 4px rgba(0,0,0,0.3);
+    flex-direction: row;
+    flex-wrap: wrap;
+    min-height: 10rem;
+    min-width: 10rem;
+}
+.task__title,
+.task__description {
+    text-align: center;
+    padding: 1rem;
+}
+.task__title {
+    font-size: 1.25rem;
+}
+.task__description {
+    font-size: 1rem;
+}
