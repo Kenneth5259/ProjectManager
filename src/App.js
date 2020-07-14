@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Project from './components/project/project';
-import ProjectSelector from './components/project-selector/project-selector';
+import Header from './components/header/header';
+import { findAllByTitle } from '@testing-library/react';
 
 const testProjects = [
   {
@@ -23,11 +24,13 @@ const testProjects = [
 
 class App extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       projects: testProjects,
       activeProject: testProjects[0]
-    }
+    };
+
+    console.log(this.state.projects);
   }
   /*
   componentDidMount() {
@@ -39,18 +42,30 @@ class App extends Component {
         activeProject: projects[0]
       });
     })*/
+  addNewProjectHandler = (title) => {
     
+    let tempProjects = this.state.projects;
+    tempProjects.push({
+      title: title,
+      _id: Math.random()
+    });
+    this.setState({projects: tempProjects});
+  }  
   
   render() {
     return (
       <div>
         <div className='header'>
-          <ProjectSelector selected={this.state.activeProject} projectList={this.state.projects}/>
+          <Header 
+          selected={this.state.activeProject} 
+          projectList={this.state.projects}
+          addHandler={this.addNewProjectHandler.bind(this)}/>
         </div>
-        
+        {/*
         <Project 
           id={this.state.activeProject}
-        /> 
+        /> */}
+
       </div>
       
     )
