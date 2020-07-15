@@ -14,6 +14,12 @@ const testProjects = [
       category: 'Compression Engine'
     },
     {
+      title: 'Test Document Object Model', 
+      description: 'Test the Document Object Model',
+      column:'Not Started',
+      category: 'Compression Engine'
+    },
+    {
       title: 'CRUD Formatting', 
       description: 'Implement the CRUD formatting for phase 1 ingestion engine',
       column:'Not Started',

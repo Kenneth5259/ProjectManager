@@ -3,8 +3,7 @@
     box-shadow: 4px 4px 4px 4px rgba(0,0,0,0.3);
     flex-direction: row;
     flex-wrap: wrap;
-    min-height: 10rem;
-    min-width: 10rem;
+    width: 100%;
 }
 .task__title,
 .task__description {

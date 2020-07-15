@@ -3,6 +3,9 @@ import React from 'react';
 import Task from './task';
 
 let TaskHolder = (tasks, categories, onDragStart) => {
+    tasks = tasks.sort((task1, task2) => {
+      return task1.category > task2.category ? 1 : -1;
+    })
     let tasksHolder = {};
     if(tasks){
         tasks.map((task) => {
