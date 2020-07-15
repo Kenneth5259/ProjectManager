@@ -1,5 +1,6 @@
 import React, {useState}from 'react';
-import Task from './task/task';
+import TaskHolder from './task/task-holder';
+import Column from './column/column.js';
 import './scrum-board.css';
 
 const ScrumBoard = (props) => {
@@ -27,47 +28,20 @@ const ScrumBoard = (props) => {
     });
     setTasks(tempTasks);
   }
-
-  let tasksHolder = {};
-
-  if(tasks){
-    tasks.map((task) => {
-      let tempCat = categories.slice();
-      let taskCat = tempCat.filter(cat => {
-        return task.category === cat.title;
-      });
-      let backgroundColor = 'white';
-      if(taskCat.length > 0) {
-        backgroundColor = taskCat[0].color;
-      }
-
-      if(tasksHolder[task.column] === undefined) {
-        tasksHolder[task.column] = [];
-      }
-      tasksHolder[task.column].push(
-          <Task 
-            id={task.id}
-            title={task.title}
-            description={task.description}
-            draggable={true}
-            backgroundColor={backgroundColor}
-            onDragStart={onDragStart}
-          />
-      )
-    });
+  let tasksHolder = {}
+  if(tasks) {
+    tasksHolder = TaskHolder(tasks, categories, onDragStart);
   }
+
   const columnsHolder = columns ? columns.map( (column) => {
       return(
-      <div 
-        className='column droppable' 
-        onDrop={(event) => onDrop(event, column)} 
-        onDragOver={(event)=> {onDragOver(event)}}
-      >
-      <h3 className='column__title' key={column}>{column}</h3>
-          <div className='task_row'>
-              {tasksHolder[column]}
-          </div>
-      </div>)
+        <Column 
+          onDrop={onDrop}
+          onDragOver={onDragOver}
+          tasksHolder={tasksHolder}
+          column={column}
+        />
+      )
   }) : null;
 
   const categoryHolder = categories ? categories.map( (category) => {

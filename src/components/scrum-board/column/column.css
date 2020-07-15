@@ -1,0 +1,27 @@
+.column {
+    height: 100vh;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: flex-start;
+    flex: 1;
+    border: 2px solid #4B1D3F;
+    border-top: 4px solid #4B1D3F;
+}
+.task_row {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    flex: 1;
+    max-height: 2rem;
+    justify-content: center;
+}
+
+.column__title {
+    padding: 1rem;
+    margin: 0;
+    width: 100%;
+    text-align: center;
+    height: 2rem;
+    border-bottom: 4px solid #4B1D3F;
+}
