@@ -12,11 +12,22 @@ ul {
 
 .selector {
     text-align: center;
+    position: relative;
 }
-
+.cover__overlay {
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,0.5);
+    position: absolute;
+    z-index: 1;
+}
 .project__list {
+    position: absolute;
+    left: 1rem;
+    right: 1rem;
     margin: auto;
     padding: 0;
+    z-index: 2;
 }
 .project__primary {
     background-color: #0E7C7B;

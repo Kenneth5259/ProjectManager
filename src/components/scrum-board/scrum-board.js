@@ -42,15 +42,17 @@ const ScrumBoard = (props) => {
   }) : null;
   const categoryHolder = categories ? CategoryHolder(categories) : null;
 
-  columnsHolder.unshift((
-    <div 
-      className='column'
-    >
-    <h3 className='column__title' key='-1'>Task Category Guide</h3>
-        <div className='task_row'>
-            {categoryHolder}
-        </div>
-    </div>));
+  if(columnsHolder) {
+    columnsHolder.unshift((
+      <div 
+        className='column'
+      >
+      <h3 className='column__title' key='-1'>Task Category Guide</h3>
+          <div className='task_row'>
+              {categoryHolder}
+          </div>
+      </div>));
+  } 
 
 
   return(

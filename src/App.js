@@ -43,8 +43,8 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      projects: testProjects,
-      activeProject: testProjects[0]
+      projects: [],
+      activeProject: {}
     };
   }
   /*
@@ -57,14 +57,22 @@ class App extends Component {
         activeProject: projects[0]
       });
     })*/
+
   addNewProjectHandler = (title) => {
-    
     let tempProjects = this.state.projects;
-    tempProjects.push({
-      title: title,
-      _id: Math.random()
+    let tempProject = {
+      title: title, 
+      _id: Math.random(),
+      columns: [],
+      tasks: [],
+      categories: []
+    
+    };
+    tempProjects.push(tempProject);
+    this.setState({
+      projects: tempProjects,
+      activeProject: tempProject
     });
-    this.setState({projects: tempProjects});
   }  
 
   updateActiveProjectHandler = (id) => {
@@ -83,7 +91,8 @@ class App extends Component {
       <div>
         <div className='header'>
           <Header 
-          selected={this.state.activeProject} 
+          key={this.state.activeProject.title}
+          selected={this.state.activeProject.title ? this.state.activeProject : {title: 'No Project Found'}} 
           projectList={this.state.projects}
           addHandler={this.addNewProjectHandler.bind(this)}
           updateActiveHandler={this.updateActiveProjectHandler.bind(this)}/>
