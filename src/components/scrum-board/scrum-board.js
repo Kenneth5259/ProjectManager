@@ -1,7 +1,8 @@
 import React, {useState}from 'react';
-import './project.css';
+import Task from './task/task';
+import './scrum-board.css';
 
-const Project = (props) => {
+const ScrumBoard = (props) => {
   const [tasks, setTasks] = useState(props.project.tasks);
   const [columns, setColumns] = useState(props.project.columns);
   const [categories, setCats] = useState(props.project.categories);
@@ -44,16 +45,14 @@ const Project = (props) => {
         tasksHolder[task.column] = [];
       }
       tasksHolder[task.column].push(
-          <div 
-            key={task.id} 
-            draggable 
-            className='task' 
-            onDragStart={(event) => onDragStart(event, task.title)}
-            style={{backgroundColor: `${backgroundColor}`}}
-          >
-              <h1 className='task__title'>{task.title}</h1>
-              <p className='task__description'>{task.description}</p>
-          </div>
+          <Task 
+            id={task.id}
+            title={task.title}
+            description={task.description}
+            draggable={true}
+            backgroundColor={backgroundColor}
+            onDragStart={onDragStart}
+          />
       )
     });
   }
@@ -95,4 +94,4 @@ const Project = (props) => {
     </div>)
 }
 
-export default Project;
+export default ScrumBoard;

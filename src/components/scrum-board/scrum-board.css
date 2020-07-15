@@ -46,22 +46,3 @@
 
 /*Task Specific Styling*/
 
-.task {
-    margin: 1rem;
-    box-shadow: 4px 4px 4px 4px rgba(0,0,0,0.3);
-    flex-direction: row;
-    flex-wrap: wrap;
-    min-height: 10rem;
-    min-width: 10rem;
-}
-.task__title,
-.task__description {
-    text-align: center;
-    padding: 1rem;
-}
-.task__title {
-    font-size: 1.25rem;
-}
-.task__description {
-    font-size: 1rem;
-}

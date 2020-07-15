@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 
-import NewProjectForm from './new-project-form/new-project-form';
+import NewProjectForm from '../new-project-form/new-project-form';
 
 import './header.css';
 

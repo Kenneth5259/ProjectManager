@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import Header from './components/header/header';
-import Project from './components/project/project';
+import ScrumBoard from './components/scrum-board/scrum-board';
 
 const testProjects = [
   {
@@ -30,31 +30,6 @@ const testProjects = [
       }
     ]
 
-  },
-  {
-    title: 'Test 2',
-    _id: '0000002',
-    columns: ['Task Category Guide', 'Not Started', 'In Progress', 'Done']
-  },
-  {
-    title: 'Test 3',
-    _id: '0000003',
-    columns: ['Task Category Guide', 'Not Started', 'In Progress', 'Done']
-  },
-  {
-    title: 'Test 4',
-    _id: '0000004',
-    tasks: [{
-      title: 'test', 
-      description: 'testing a task',
-      column:'Not Started'
-    },
-    {
-      title: 'test 2', 
-      description: 'testing a task',
-      column:'Not Started',
-    }],
-    columns: ['Task Category Guide', 'Not Started', 'In Progress', 'Done']
   }
 ];
 
@@ -108,7 +83,7 @@ class App extends Component {
           updateActiveHandler={this.updateActiveProjectHandler.bind(this)}/>
         </div>
         {
-        <Project 
+        <ScrumBoard 
           key={this.state.activeProject._id}
           project={this.state.activeProject}
         />}
