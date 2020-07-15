@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 
 import NewProjectForm from './new-project-form/new-project-form';
 
-import './project-selector.css';
+import './header.css';
 
 import logo from '../../logo.png';
 
@@ -17,9 +17,19 @@ const Header = (props) => {
     const [showForm, toggleForm] = useState(false);
 
     //Project Mapping
+    const listItemClicked = (project) => {
+        setActiveProj(project); 
+        setVisibilty(!visibility); 
+        toggleForm(false);
+        props.updateActiveHandler(project._id);
+    }
+
     let projectList = props.projectList.map(project => {
         return(
-        <li key={project._id} className='project__secondary' onClick={() => {setActiveProj(project); setVisibilty(!visibility);}}>{project.title}</li>
+        <li key={project._id} 
+            className='project__secondary' 
+            onClick={() => {listItemClicked(project)}
+            }>{project.title}</li>
         )
     }); 
 
@@ -38,7 +48,9 @@ const Header = (props) => {
             <div className='selector'>
                 <img className='logo' src={logo} alt='oops'/>
                 <h1 className='project__primary' onClick={() => setVisibilty(!visibility)}>{activeProj.title}</h1>
-                {visibility ? <ul className={'project__list'}>{projectList}</ul> : null}
+                {visibility ? 
+                    <ul className={'project__list'}>{projectList}</ul> : 
+                null}
                 {showForm ? 
                     <NewProjectForm submit={handleFormSubmit.bind(this)}/> : 
                 null}
