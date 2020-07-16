@@ -6,7 +6,7 @@ const CategoryHolder = (categories) => {
     });
     return categories.map( (category) => {
         return (
-          <div className='task' style={{backgroundColor: `${category.color}`}}>
+          <div key={Math.random()} className='task' style={{backgroundColor: `${category.color}`}}>
             <h1 className='task__title'>{category.title}</h1>
           </div>
         );

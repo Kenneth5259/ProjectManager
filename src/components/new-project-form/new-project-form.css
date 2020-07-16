@@ -1,0 +1,26 @@
+.form__container {
+    padding-top: 1rem;
+    width: 80%;
+    margin: auto;
+    text-align: center;
+}
+.form__input {
+    margin: 1rem;
+    width: 80%;
+    font-size: 1.5rem;
+    height: 2rem;
+    border: 3px solid #D64426;
+    border-radius: 1rem;
+}
+.form__input__label {
+    font-size: 1.5rem;
+}
+.form__submit__button {
+    color: white;
+    background-color: #0E7C7B;
+    font-size: 1.25rem;
+    text-decoration: none;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 1rem;
+}

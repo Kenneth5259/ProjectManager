@@ -1,0 +1,23 @@
+.category__form {
+    display: flexbox;
+    width: 100%;
+    margin: 1rem;
+    flex-direction: column;
+    flex-wrap: wrap;
+    box-shadow: 4px 4px 4px 4px rgba(0,0,0,0.3);
+}
+.category__input {
+    display: block;
+    margin: auto;
+    justify-content: center;
+    align-items: center;
+}
+.category__name {
+    margin-top: 1rem;
+}
+.category__button {
+    text-align: center;
+    max-width: 80%;
+    display: block;
+    margin: 0 auto 1rem auto;
+}

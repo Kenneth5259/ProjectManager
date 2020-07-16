@@ -1,15 +1,28 @@
 import React, {useState}from 'react';
 import TaskHolder from './task/task-holder';
 import CategoryHolder from './category-holder';
+import CreateNewCategory from './create-new-category/create-new-category';
 import Column from './column/column.js';
 import './scrum-board.css';
 
 const ScrumBoard = (props) => {
   // State Management
+  const [project, setProj] = useState(props.project);
   const [tasks, setTasks] = useState(props.project.tasks);
   const [columns, setColumns] = useState(props.project.columns);
   const [categories, setCats] = useState(props.project.categories);
   
+  //Parent Feedback
+
+  const pushUpdatedProject = () => {
+    let tempProject = project;
+    tempProject.tasks = tasks;
+    tempProject.columns = columns;
+    tempProject.categories = categories;
+    setProj(tempProject);
+    props.updateProjects(tempProject);
+  }
+
   // Drag and Drop Handlers
   const onDragStart = (event, title) => {
     event.dataTransfer.setData('title', title);
@@ -28,15 +41,39 @@ const ScrumBoard = (props) => {
       return task;
     });
     setTasks(tempTasks);
+    pushUpdatedProject();
+  }
+
+  const pushNewTask = (task) => {
+    let tempTask = {
+      _id: Math.random(),
+      title: task.title,
+      description: task.description,
+      category: task.category,
+      column: task.column
+    }
+    let tempTasks = tasks;
+    tempTasks.push(tempTask);
+    setTasks(tempTasks);
+    pushUpdatedProject();
+  }
+
+  const addNewCategory = (cat) => {
+    let tempCat = categories;
+    tempCat.push({title: cat.title, color: cat.color});
+    setCats(tempCat);
+    pushUpdatedProject();
   }
 
   const columnsHolder = columns ? columns.map( (column) => {
       return(
         <Column 
+          key={column}
           onDrop={onDrop}
           onDragOver={onDragOver}
           tasksHolder={TaskHolder(tasks, categories, onDragStart)}
           column={column}
+          newTask={pushNewTask}
         />
       )
   }) : null;
@@ -46,10 +83,12 @@ const ScrumBoard = (props) => {
     columnsHolder.unshift((
       <div 
         className='column'
+        key='-1'
       >
-      <h3 className='column__title' key='-1'>Task Category Guide</h3>
+      <h3 className='column__title' >Task Category Guide</h3>
           <div className='task_row'>
               {categoryHolder}
+              <CreateNewCategory addCat={addNewCategory}/>
           </div>
       </div>));
   } 

@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Header from './components/header/header';
 import ScrumBoard from './components/scrum-board/scrum-board';
+import NewProjectForm from './components/new-project-form/new-project-form';
 
 const testProjects = [
   {
@@ -8,18 +9,21 @@ const testProjects = [
     _id: '0000001',
     columns: ['Not Started', 'In Progress', 'Done'],
     tasks: [{
+      id: Math.random(),
       title: 'Develop Object Model', 
       description: 'Develop object model in compliance with requirement #83764',
       column:'Not Started',
       category: 'Compression Engine'
     },
     {
+      id: Math.random(),
       title: 'Test Document Object Model', 
       description: 'Test the Document Object Model',
       column:'Not Started',
       category: 'Compression Engine'
     },
     {
+      id: Math.random(),
       title: 'CRUD Formatting', 
       description: 'Implement the CRUD formatting for phase 1 ingestion engine',
       column:'Not Started',
@@ -43,8 +47,10 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      projects: [],
-      activeProject: {}
+      projects: testProjects,
+      activeProject: testProjects[0],
+      scrumVisibility: true,
+      formVisibility: false
     };
   }
   /*
@@ -58,21 +64,35 @@ class App extends Component {
       });
     })*/
 
-  addNewProjectHandler = (title) => {
-    let tempProjects = this.state.projects;
-    let tempProject = {
-      title: title, 
-      _id: Math.random(),
-      columns: [],
-      tasks: [],
-      categories: []
-    
-    };
-    tempProjects.push(tempProject);
-    this.setState({
-      projects: tempProjects,
-      activeProject: tempProject
-    });
+  addNewProjectHandler = (ProjectInformation) => {
+    if(ProjectInformation.title.length > 0){
+      let tempColumns = ProjectInformation.columns;
+      tempColumns = tempColumns.split(', ');
+      tempColumns = tempColumns.filter((col) => {
+        if(col.length > 0) {
+          return col;
+        }
+      })
+      tempColumns.unshift('Done');
+      tempColumns.unshift('In Progress');
+      tempColumns.unshift('Not Started');
+      let tempProjects = this.state.projects;
+      let tempProject = {
+        title: ProjectInformation.title, 
+        _id: Math.random(),
+        columns: tempColumns,
+        tasks: [],
+        categories: []
+      
+      };
+      tempProjects.push(tempProject);
+      this.setState({
+        projects: tempProjects,
+        activeProject: tempProject
+      });
+    }
+    this.formVisibilityHandler();
+  
   }  
 
   updateActiveProjectHandler = (id) => {
@@ -85,7 +105,23 @@ class App extends Component {
       this.setState({activeProject: active[0]});
     }
   }
-  
+  formVisibilityHandler = () => {
+    let newFormVisibility = !this.state.formVisibility;
+    let newScrumVisibilty = !this.state.scrumVisibility;
+    this.setState({
+      formVisibility: newFormVisibility,
+      scrumVisibility: newScrumVisibilty
+    });
+  }
+  updateProjectInformation = (project) => {
+    let tempProjects = this.state.projects.filter((proj) => {
+      if(proj._id === project._id) {
+        proj.tasks = project.tasks;
+      }
+      return proj;
+    });
+    this.setState({projects: tempProjects});
+  }
   render() {
     return (
       <div>
@@ -95,13 +131,16 @@ class App extends Component {
           selected={this.state.activeProject.title ? this.state.activeProject : {title: 'No Project Found'}} 
           projectList={this.state.projects}
           addHandler={this.addNewProjectHandler.bind(this)}
-          updateActiveHandler={this.updateActiveProjectHandler.bind(this)}/>
+          updateActiveHandler={this.updateActiveProjectHandler.bind(this)}
+          formVisibilityHandler={this.formVisibilityHandler.bind(this)}/>
         </div>
-        {
-        <ScrumBoard 
-          key={this.state.activeProject._id}
+        {this.state.scrumVisibility? <ScrumBoard 
+          key={this.state.activeProject.tasks}
           project={this.state.activeProject}
-        />}
+          updateProjects={this.updateProjectInformation.bind(this)}
+        />: null}
+        {this.state.formVisibility ? <NewProjectForm submit={this.addNewProjectHandler.bind(this)}/> : null}
+        
 
       </div>
       

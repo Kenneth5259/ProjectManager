@@ -23,6 +23,7 @@ let TaskHolder = (tasks, categories, onDragStart) => {
           }
           tasksHolder[task.column].push(
               <Task 
+                key={task.id}
                 id={task.id}
                 title={task.title}
                 description={task.description}

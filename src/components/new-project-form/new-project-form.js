@@ -1,21 +1,29 @@
 import React, {useState} from 'react';
 
+import './new-project-form.css';
+
 const NewProjectForm = (props) => {
-    const [formData, updateFormData] = useState({title: ''});
+    const [formData, updateFormData] = useState({title: '', columns:''});
 
     const handleFormData = () => {
         console.log(formData);
-        props.submit(formData.title);
+        props.submit(formData);
     }
     
-    const handleChange = (e) => {
-        updateFormData({title: e.target.value});
+    const handleTitleChange = (e) => {
+        updateFormData({title: e.target.value, columns: formData.columns});
+    }
+
+    const handleColumnChange = (e) => {
+        updateFormData({title: formData.title, columns: e.target.value});
     }
     return(
-    <div>
-        <label>Project Title: </label><br/>
-        <input type='text' name='title' onChange={handleChange}></input><br/>
-        <button onClick={handleFormData}>Submit</button>
+    <div className='form__container'>
+        <label className='form__input__label'>Project Title: </label><br/>
+        <input className='form__input' type='text' name='title' onChange={handleTitleChange}></input><br/>
+        <label className='form__input__label'>Progress Columns(Comma Separated)</label><br/>
+        <input className='form__input' type='text' name='title' onChange={handleColumnChange}></input><br/>
+        <button className='form__submit__button' onClick={handleFormData}>Submit</button>
     </div>
     )
 }

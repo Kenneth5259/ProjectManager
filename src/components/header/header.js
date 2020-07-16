@@ -14,13 +14,11 @@ const Header = (props) => {
     }
     const [visibility, setVisibilty] = useState(false);
     const [activeProj, setActiveProj] = useState(initValue);
-    const [showForm, toggleForm] = useState(false);
 
     //Project Mapping
     const listItemClicked = (project) => {
         setActiveProj(project); 
         setVisibilty(!visibility); 
-        toggleForm(false);
         props.updateActiveHandler(project._id);
     }
 
@@ -33,16 +31,8 @@ const Header = (props) => {
         )
     }); 
 
-    //Project Form Handler
-
-    let handleFormSubmit = (data) => {
-        props.addHandler(data);
-        toggleForm(!showForm);
-    }
-    
-
     //New Project Button
-    projectList.push(<li key='-1'className='project__secondary' onClick={() => {toggleForm(!showForm); setVisibilty(!visibility);}}>Add New Project</li>)
+    projectList.push(<li key='-1'className='project__secondary' onClick={() => {setVisibilty(!visibility); props.formVisibilityHandler()}}>Add New Project</li>)
     return(
         <div className='header'>
             <div className='selector'>
@@ -55,9 +45,6 @@ const Header = (props) => {
                         <div onClick={()=> setVisibilty(!visibility)}className='cover__overlay'></div>
                         <ul className={'project__list'}>{projectList}</ul>
                     </div> : 
-                null}
-                {showForm ? 
-                    <NewProjectForm submit={handleFormSubmit.bind(this)}/> : 
                 null}
             </div>  
         </div>
