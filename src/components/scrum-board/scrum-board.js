@@ -46,20 +46,19 @@ const ScrumBoard = (props) => {
 
   const pushNewTask = (task) => {
     let tempTask = {
-      _id: Math.random(),
       title: task.title,
       description: task.description,
       category: task.category,
       column: task.column
     }
-    let tempTasks = tasks;
+    let tempTasks = tasks ? tasks : [];
     tempTasks.push(tempTask);
     setTasks(tempTasks);
     pushUpdatedProject();
   }
 
   const addNewCategory = (cat) => {
-    let tempCat = categories;
+    let tempCat = categories ? categories : [];
     tempCat.push({title: cat.title, color: cat.color});
     setCats(tempCat);
     pushUpdatedProject();
@@ -78,7 +77,7 @@ const ScrumBoard = (props) => {
       )
   }) : null;
   const categoryHolder = categories ? CategoryHolder(categories) : null;
-
+  console.log(columns);
   if(columnsHolder) {
     columnsHolder.unshift((
       <div 

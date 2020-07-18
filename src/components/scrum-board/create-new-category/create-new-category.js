@@ -17,8 +17,8 @@ const CreateNewCategory = (props) => {
 
     return(
         <div className='category__form' style={{backgroundColor: `${catData.color}`}}>
-            <input className='category__input category__name' onChange={nameChangeHandler}></input><br/>
-            <input className='category__input category__color'onChange={colorChangeHandler}></input><br/>
+            <input className='category__input category__name' onChange={nameChangeHandler} placeholder='New Category Name'></input><br/>
+            <input className='category__input category__color'onChange={colorChangeHandler} placeholder='New Color Code'></input><br/>
             <button className='category__button' onClick={() => props.addCat(catData)}>Submit New Category</button>
         </div>
     )

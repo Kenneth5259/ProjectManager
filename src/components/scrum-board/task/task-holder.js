@@ -3,13 +3,15 @@ import React from 'react';
 import Task from './task';
 
 let TaskHolder = (tasks, categories, onDragStart) => {
-    tasks = tasks.sort((task1, task2) => {
-      return task1.category > task2.category ? 1 : -1;
-    })
+    if(tasks) {
+      tasks = tasks.sort((task1, task2) => {
+        return task1.category > task2.category ? 1 : -1;
+      })
+    }
     let tasksHolder = {};
     if(tasks){
         tasks.map((task) => {
-          let tempCat = categories.slice();
+          let tempCat = categories ? categories.slice() : [];
           let taskCat = tempCat.filter(cat => {
             return task.category === cat.title;
           });
@@ -23,8 +25,8 @@ let TaskHolder = (tasks, categories, onDragStart) => {
           }
           tasksHolder[task.column].push(
               <Task 
-                key={task.id}
-                id={task.id}
+                key={task._id}
+                id={task._id}
                 title={task.title}
                 description={task.description}
                 draggable={true}

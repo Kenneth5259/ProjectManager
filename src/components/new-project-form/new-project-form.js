@@ -6,7 +6,6 @@ const NewProjectForm = (props) => {
     const [formData, updateFormData] = useState({title: '', columns:''});
 
     const handleFormData = () => {
-        console.log(formData);
         props.submit(formData);
     }
     

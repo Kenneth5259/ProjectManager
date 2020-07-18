@@ -7,11 +7,15 @@
     box-shadow: 4px 4px 4px 4px rgba(0,0,0,0.3);
     
 }
+.task__form>div {
+    min-width: 100%;
+}
 .task__input {
     display: block;
     margin: auto;
     justify-content: center;
     align-items: center;
+    width: 80%;
 }
 .task__name {
     margin-top: 1rem;

@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const projectRouter = require('./routes/projectRouter');
 
 
 const app = express();
@@ -22,5 +23,6 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use('/api/projects', projectRouter);
 
 module.exports = app;

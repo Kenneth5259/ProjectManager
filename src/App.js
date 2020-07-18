@@ -3,66 +3,33 @@ import Header from './components/header/header';
 import ScrumBoard from './components/scrum-board/scrum-board';
 import NewProjectForm from './components/new-project-form/new-project-form';
 
-const testProjects = [
-  {
-    title: 'Test 1',
-    _id: '0000001',
-    columns: ['Not Started', 'In Progress', 'Done'],
-    tasks: [{
-      id: Math.random(),
-      title: 'Develop Object Model', 
-      description: 'Develop object model in compliance with requirement #83764',
-      column:'Not Started',
-      category: 'Compression Engine'
-    },
-    {
-      id: Math.random(),
-      title: 'Test Document Object Model', 
-      description: 'Test the Document Object Model',
-      column:'Not Started',
-      category: 'Compression Engine'
-    },
-    {
-      id: Math.random(),
-      title: 'CRUD Formatting', 
-      description: 'Implement the CRUD formatting for phase 1 ingestion engine',
-      column:'Not Started',
-      category: 'Ingestion Engine'
-    }],
-    categories: [
-      {
-        title: 'Ingestion Engine',
-        color: '#D4F4DD'
-      },
-      {
-        title: 'Compression Engine',
-        color: '#17BEBB'
-      }
-    ]
+import Axios from 'axios';
 
-  }
-];
+const projectsApi = 'http://localhost:2500/api/projects/';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      projects: testProjects,
-      activeProject: testProjects[0],
+      projects: [],
+      activeProject: {},
       scrumVisibility: true,
       formVisibility: false
     };
   }
-  /*
+  
   componentDidMount() {
-    fetch('http://localhost:2500/projects')
-    .then((results) => results.json())
-    .then((projects) => {
-      this.setState({
-        projects: projects,
-        activeProject: projects[0]
-      });
-    })*/
+    Axios.get(projectsApi)
+      .then((results) => {
+          if(results.data.project.length > 0){
+            this.setState({
+              projects: results.data.project,
+              activeProject: results.data.project[0]
+            })
+          }
+      }
+    )
+  }
 
   addNewProjectHandler = (ProjectInformation) => {
     if(ProjectInformation.title.length > 0){
@@ -76,22 +43,27 @@ class App extends Component {
       tempColumns.unshift('Done');
       tempColumns.unshift('In Progress');
       tempColumns.unshift('Not Started');
-      let tempProjects = this.state.projects;
+      let tempProjects = this.state.projects ? this.state.projects : [];
       let tempProject = {
-        title: ProjectInformation.title, 
-        _id: Math.random(),
+        title: ProjectInformation.title,
         columns: tempColumns,
         tasks: [],
         categories: []
       
       };
       tempProjects.push(tempProject);
-      this.setState({
-        projects: tempProjects,
-        activeProject: tempProject
-      });
+
+      Axios.post(projectsApi + 'create/', {project: tempProject})
+        .then((response) => {
+          let received = response.data;
+          this.setState({
+            projects: tempProjects,
+            activeProject: received.project,
+            formVisibility: false,
+            scrumVisibility: true
+          })
+        });
     }
-    this.formVisibilityHandler();
   
   }  
 
@@ -105,24 +77,36 @@ class App extends Component {
       this.setState({activeProject: active[0]});
     }
   }
-  formVisibilityHandler = () => {
-    let newFormVisibility = !this.state.formVisibility;
-    let newScrumVisibilty = !this.state.scrumVisibility;
+
+  formVisibilityHandler = (value) => {
     this.setState({
-      formVisibility: newFormVisibility,
-      scrumVisibility: newScrumVisibilty
+      formVisibility: value,
     });
   }
+
+  scrumVisibilityHandler = (value) => {
+    this.setState({
+      scrumVisibility: value
+    });
+  }
+
   updateProjectInformation = (project) => {
-    let tempProjects = this.state.projects.filter((proj) => {
-      if(proj._id === project._id) {
-        proj.tasks = project.tasks;
-      }
-      return proj;
+    Axios.post(projectsApi + 'update/' + project._id, {project: project})
+        .then((response) => {
+          let receivedProject = response.data.project;
+          let tempProjects = this.state.projects.filter((proj) => {
+            if(proj._id === receivedProject._id) {
+              // proj.tasks = project.tasks; //updates project tasks
+              proj = receivedProject;
+            }
+            return proj;
+          });
+          this.setState({projects: tempProjects});
     });
-    this.setState({projects: tempProjects});
   }
+
   render() {
+    console.log(this.state.activeProject);
     return (
       <div>
         <div className='header'>
@@ -132,16 +116,15 @@ class App extends Component {
           projectList={this.state.projects}
           addHandler={this.addNewProjectHandler.bind(this)}
           updateActiveHandler={this.updateActiveProjectHandler.bind(this)}
-          formVisibilityHandler={this.formVisibilityHandler.bind(this)}/>
+          formVisibilityHandler={this.formVisibilityHandler.bind(this)}
+          scrumVisibilityHandler={this.scrumVisibilityHandler.bind(this)}/>
         </div>
         {this.state.scrumVisibility? <ScrumBoard 
-          key={this.state.activeProject.tasks}
+          key={this.state.activeProject._id}
           project={this.state.activeProject}
           updateProjects={this.updateProjectInformation.bind(this)}
         />: null}
         {this.state.formVisibility ? <NewProjectForm submit={this.addNewProjectHandler.bind(this)}/> : null}
-        
-
       </div>
       
     )
