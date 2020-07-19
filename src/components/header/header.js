@@ -36,7 +36,7 @@ const Header = (props) => {
     
 
     //New Project Button
-    projectList.push(<li key='-1'className='project__secondary' onClick={() => {setVisibilty(!visibility); props.formVisibilityHandler(true)}}>Add New Project</li>)
+    projectList.push(<li key='-1'className='project__secondary' onClick={() => {setVisibilty(!visibility); props.formVisibilityHandler(true); props.scrumVisibilityHandler(false)}}>Add New Project</li>)
     return(
         <div className='header'>
             <div className='selector'>
