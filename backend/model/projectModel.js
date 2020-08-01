@@ -5,7 +5,7 @@ const Project = mongoose.model('Project', {
     description: {
         type: String,
         required: false
-    }
+    },
     tasks: [{
         _id: mongoose.Types.ObjectId,
         title: {
@@ -71,6 +71,7 @@ const updateProjectInformation = (id, projectChanges) => {
 const createNewProject = (project) => {
     let newProject = new Project({
         title: project.title,
+        description: project.description,
         tasks: project.tasks,
         columns: project.columns,
         category: project.category

@@ -44,6 +44,10 @@ const Header = (props) => {
                 <h1 className='project__primary' onClick={() => setVisibilty(!visibility)}>
                     {activeProj.title} 
                 </h1>
+                {activeProj.description ?
+                     <span className='project__description'>{activeProj.description}</span>:null
+                }
+               
                 {visibility ? 
                     <div>
                         <div onClick={()=> setVisibilty(!visibility)}className='cover__overlay'></div>

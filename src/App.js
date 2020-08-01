@@ -33,19 +33,14 @@ class App extends Component {
 
   addNewProjectHandler = (ProjectInformation) => {
     if(ProjectInformation.title.length > 0){
-      let tempColumns = ProjectInformation.columns;
-      tempColumns = tempColumns.split(', ');
-      tempColumns = tempColumns.filter((col) => {
-        if(col.length > 0) {
-          return col;
-        }
-      })
+      let tempColumns = [];
       tempColumns.unshift('Done');
       tempColumns.unshift('In Progress');
       tempColumns.unshift('Not Started');
       let tempProjects = this.state.projects ? this.state.projects : [];
       let tempProject = {
         title: ProjectInformation.title,
+        description: ProjectInformation.description,
         columns: tempColumns,
         tasks: [],
         categories: []
