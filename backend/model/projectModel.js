@@ -2,6 +2,10 @@ const mongoose = require('mongoose');
 
 const Project = mongoose.model('Project', {
     title: String,
+    description: {
+        type: String,
+        required: false
+    }
     tasks: [{
         _id: mongoose.Types.ObjectId,
         title: {
@@ -12,12 +16,14 @@ const Project = mongoose.model('Project', {
         category: String, 
         column: String,
         created: Date,
-        modified: Date
+        modified: Date,
+        backlogged: Boolean
     }],
     columns: [String],
     categories: [{
         title: String,
-        color: String
+        color: String,
+        backlogged: Boolean
     }]
 }, 'projects');
 
