@@ -6,6 +6,7 @@ const CreateNewTask = (props) => {
     const [taskData, setTaskData] = useState({
         title: '', 
         description: '',
+        backlogged: false,
         category: '',
         column: props.column
     });

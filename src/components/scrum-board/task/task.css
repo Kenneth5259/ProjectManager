@@ -16,3 +16,30 @@
 .task__description {
     font-size: 1rem;
 }
+.task__buttons {
+    display: flex;
+    margin: auto;
+    padding: 1rem;
+    text-align: center;
+    padding-top: 0;
+}
+
+.task__button.task__button__del {
+    margin: auto;
+    padding: 0.5rem;
+    color: white;
+    background-color: red;
+    border: none;
+    min-width: 33%;
+    vertical-align: middle;
+    
+}
+.task__button.task__button__comp {
+    display: inline;
+    min-width: 33%;
+    margin: 1rem auto;
+    padding: 0.5rem;
+    background-color: green;
+    color: white;
+    border: none;
+}

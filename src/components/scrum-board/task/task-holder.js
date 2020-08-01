@@ -2,7 +2,7 @@ import React from 'react';
 
 import Task from './task';
 
-let TaskHolder = (tasks, categories, onDragStart) => {
+let TaskHolder = (tasks, categories, onDragStart, completeTask, deleteTask) => {
     if(tasks) {
       tasks = tasks.sort((task1, task2) => {
         return task1.category > task2.category ? 1 : -1;
@@ -23,6 +23,7 @@ let TaskHolder = (tasks, categories, onDragStart) => {
           if(tasksHolder[task.column] === undefined) {
             tasksHolder[task.column] = [];
           }
+          if(task.backlogged === false) {
           tasksHolder[task.column].push(
               <Task 
                 key={task._id}
@@ -32,8 +33,12 @@ let TaskHolder = (tasks, categories, onDragStart) => {
                 draggable={true}
                 backgroundColor={backgroundColor}
                 onDragStart={onDragStart}
+                completeTask={completeTask}
+                deleteTask={deleteTask}
+
               />
           )
+          }
         });
     }
     return tasksHolder;

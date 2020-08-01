@@ -15,7 +15,7 @@ const ScrumBoard = (props) => {
   //Parent Feedback
 
   const pushUpdatedProject = () => {
-    let tempProject = project;
+    let tempProject = {...project};
     tempProject.tasks = tasks;
     tempProject.columns = columns;
     tempProject.categories = categories;
@@ -44,10 +44,33 @@ const ScrumBoard = (props) => {
     pushUpdatedProject();
   }
 
+  const completeTask = (id) => {
+    let tempTasks = [...tasks];
+    tempTasks = tempTasks.filter((task) => {
+      if(task._id === id) {
+        task.backlogged = true;
+      }
+      return task;
+    });
+    setTasks(tempTasks);
+    pushUpdatedProject();
+  }
+
+  const deleteTask = (id) => {
+    let tempTasks = [...tasks];
+    setTasks(tempTasks.filter((task) => {
+      if(task._id !== id) {
+        return task;
+      }
+    }));
+    pushUpdatedProject();
+  }
+
   const pushNewTask = (task) => {
     let tempTask = {
       title: task.title,
       description: task.description,
+      backlogged: false,
       category: task.category,
       column: task.column
     }
@@ -70,14 +93,13 @@ const ScrumBoard = (props) => {
           key={column}
           onDrop={onDrop}
           onDragOver={onDragOver}
-          tasksHolder={TaskHolder(tasks, categories, onDragStart)}
+          tasksHolder={TaskHolder(tasks, categories, onDragStart, completeTask, deleteTask)}
           column={column}
           newTask={pushNewTask}
         />
       )
   }) : null;
   const categoryHolder = categories ? CategoryHolder(categories) : null;
-  console.log(columns);
   if(columnsHolder) {
     columnsHolder.unshift((
       <div 

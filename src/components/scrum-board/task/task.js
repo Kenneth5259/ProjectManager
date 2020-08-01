@@ -13,6 +13,10 @@ const Task = (props) => {
         >
             <h1 className='task__title'>{props.title}</h1>
             <p className='task__description'>{props.description}</p>
+            <div className='task__buttons'>
+                <button className='task__button task__button__comp' onClick={() => {props.completeTask(props.id)}}>Complete</button>
+                <button className='task__button task__button__del' onClick={()=> {props.deleteTask(props.id)}}>Delete</button>
+            </div>
         </div>
     );
 }

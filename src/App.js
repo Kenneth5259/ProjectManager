@@ -101,7 +101,6 @@ class App extends Component {
   }
 
   render() {
-    console.log(this.state.activeProject);
     return (
       <div>
         <div className='header'>
