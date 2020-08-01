@@ -17,7 +17,10 @@ const Project = mongoose.model('Project', {
         column: String,
         created: Date,
         modified: Date,
-        backlogged: Boolean
+        backlogged: {
+            type: Boolean,
+            required: true,
+        }
     }],
     columns: [String],
     categories: [{
@@ -52,11 +55,13 @@ const updateProjectInformation = (id, projectChanges) => {
         newTask['column'] = task.column;
         newTask['created'] = task.created ? task.created : new Date();
         newTask['modified'] = new Date();
+        newTask['backlogged'] = task.backlogged;
         return newTask;
     })
-    console.log(tasks);
     projectChanges.tasks = tasks;
-    let currentProject = Project.findByIdAndUpdate(id, {
+
+    let currentProject = Project.findByIdAndUpdate({_id: id}, 
+    {
         title: projectChanges.title,
         tasks: projectChanges.tasks,
         columns: projectChanges.columns,
