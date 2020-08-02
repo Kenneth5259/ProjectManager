@@ -101,6 +101,18 @@ const createNewProject = (project) => {
     return newProject.save();
 }
 
+const addNewTaskToProject = (projectId, task) => {
+    task._id = mongoose.Types.ObjectId();
+    let project = Project.findByIdAndUpdate(
+        {_id: projectId},
+        {$push: {
+            tasks: {
+                task
+            }
+        }}
+    );
+}
+
 const deleteTaskFromProject = (projectId, taskId) => {
     let project = Project.findByIdAndUpdate(
         {_id: projectId},
@@ -118,5 +130,6 @@ module.exports = {
     findProjectById,
     createNewProject,
     updateProjectInformation,
+    addNewTaskToProject,
     deleteTaskFromProject
 }

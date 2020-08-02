@@ -64,10 +64,30 @@ const postNewProject = (req, res, next) => {
     });
 }
 
+const createNewTask = (req, res, next) => {
+    let projectId = req.params.projectId;
+    let task = req.body.task;
+    console.log(task);
+    ProjectModel.addNewTaskToProject(projectId, task)
+    .then((project) => {
+        if(project) {
+            res.status(200).json({
+                message: 'Task Created',
+                project: project
+            })
+        } else {
+            res.status(500).json({
+                message: 'Task Not Created'
+            })
+        }
+    })
+
+
+}
+
 const deleteExistingTask = (req, res, next) => {
     let projectId = req.params.projectId;
     let taskId = req.params.taskId;
-    console.log(req.params);
     ProjectModel.deleteTaskFromProject(projectId, taskId).then((project) => {
         if(project) {
             res.status(200).json({
@@ -87,5 +107,6 @@ module.exports ={
     findById,
     postUpdatedProject,
     postNewProject,
+    createNewTask,
     deleteExistingTask
 }

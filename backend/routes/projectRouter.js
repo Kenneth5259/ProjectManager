@@ -8,8 +8,9 @@ router.get('/:id', ProjectController.findById);
 router.get('/', ProjectController.findAll);
 
 router.post('/create/', ProjectController.postNewProject);
-router.post('/update/:id', ProjectController.postUpdatedProject)
-router.post('/delete/:projectId/task/:taskId', ProjectController.deleteExistingTask);
+router.post('/update/:id', ProjectController.postUpdatedProject);
+router.post('/:projectId/create/task/', ProjectController.createNewTask);
+router.post('/:projectId/delete/task/:taskId', ProjectController.deleteExistingTask);
 
 
 
