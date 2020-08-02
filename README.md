@@ -1,68 +1,58 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is the README for the Project Management Application that began development during COVID-19 related unemployment.
 
-## Available Scripts
+It serves as good practice and a practical tool for me to use for other projects.
 
-In the project directory, you can run:
+Current setup uses the following technologies:
+    -React Front End
+        -Axios for http requests
+        -All Components written from scratch. Opted to not use Redux at this time for state management.
+    -Node Backend
+        -Express JS
+        -Mongoose for DB access and models
+        -PassportJS for Authenticating Users *TO BE ADDED
+    -MongoDB
 
-### `npm start`
+The Application currently allows for multiple projects to be created and stored, each with its own series of categories for tasks, individual tasks, and the progress of those tasks.
+The first major function is to serve as a virtual SCRUM board. 
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+GOALS:
+    - Functioning SCRUM Board (IN PROGRESS)
+        - Fully droppable tasks
+        - Task backlog visibiliy
+        - Custom columns
+            - Custom columns rearrangeable *TO BE ADDED
+            - Custom Columns Deleteable *TO BE ADDED
+            - Custom Columns Editable
+        -Custom Tasks
+            - Title
+            - Description
+            - Category w/ Color Matching
+            - Requirement Number *TO BE ADDED
+            - Task Editing (Any above fields) *TO BE ADDED
+            - Task Deletion for accidental creation
+            - Task Completion for backlogging
+        - Custom Categories
+            - Title
+            - Stored Color
+            - Completion *TO BE ADDED
+            - Deletion *TO BE ADDED
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+    - Functioning Backlog *TO BE ADDED
+        - Shows every completed category and tasks
+        - Allows for viewinging on complete requirements, and corresponding user who completed the task
+        - Visibility on dates for completion and modification on tasks/categories
 
-### `npm test`
-
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+    - Requirements Management System *TO BE ADDED
+        - Create Requirement
+            - Title
+            - Description
+            - Incrementing Requirement Number
+            - Parent Requirement(s)
+                - Categories may have requirements which are inherited by every task under the category
+        - Edit Requirement
+            - See all above properties of Create Requirement
+        - Delete Requirement
+            - See all above properties of Create Requirement
+    
+    - User Management System * TO BE ADDED
+    

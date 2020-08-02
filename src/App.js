@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import {BrowserRouter as Router, Link, Route, Switch} from 'react-router-dom';
+
 import Header from './components/header/header';
 import ScrumBoard from './components/scrum-board/scrum-board';
 import NewProjectForm from './components/new-project-form/new-project-form';
@@ -102,7 +104,7 @@ class App extends Component {
 
   render() {
     return (
-      <div>
+      <Router>
         <div className='header'>
           <Header 
           key={this.state.activeProject.title}
@@ -117,9 +119,10 @@ class App extends Component {
           key={this.state.activeProject._id}
           project={this.state.activeProject}
           updateProjects={this.updateProjectInformation.bind(this)}
+          api={projectsApi}
         />: null}
         {this.state.formVisibility ? <NewProjectForm submit={this.addNewProjectHandler.bind(this)}/> : null}
-      </div>
+      </Router>
       
     )
   }

@@ -4,10 +4,12 @@ import CategoryHolder from './category-holder';
 import CreateNewCategory from './create-new-category/create-new-category';
 import Column from './column/column.js';
 import './scrum-board.css';
+import Axios from 'axios';
 
 const ScrumBoard = (props) => {
   // State Management
   const [project, setProj] = useState(props.project);
+  console.log(project);
   const [tasks, setTasks] = useState(props.project.tasks);
   const [columns, setColumns] = useState(props.project.columns);
   const [categories, setCats] = useState(props.project.categories);
@@ -34,14 +36,21 @@ const ScrumBoard = (props) => {
 
   const onDrop = (event, col) => {
     let title = event.dataTransfer.getData('title');
-    let tempTasks = tasks.filter(task => {
+    let tempTasks = [...tasks];
+    let taskId;
+    tempTasks = tempTasks.filter(task => {
       if(task.title === title) {
         task.column = col;
+        taskId = task._id;
       }
       return task;
     });
-    setTasks(tempTasks);
-    pushUpdatedProject();
+    Axios.post(props.api + `${project._id}/update/task/${taskId}/column/`, {column: col})
+    .then(() => {
+      setTasks(tempTasks);
+      pushUpdatedProject();
+    });
+    
   }
 
   const completeTask = (id) => {
@@ -57,13 +66,16 @@ const ScrumBoard = (props) => {
   }
 
   const deleteTask = (id) => {
-    let tempTasks = [...tasks];
-    setTasks(tempTasks.filter((task) => {
-      if(task._id !== id) {
-        return task;
-      }
-    }));
-    pushUpdatedProject();
+    Axios.post(props.api + `${project._id}/delete/task/${id}`)
+    .then( () => 
+        {let tempTasks = [...tasks];
+        setTasks(tempTasks.filter((task) => {
+          if(task._id !== id) {
+            return task;
+          }
+        }));
+        pushUpdatedProject();}
+    );
   }
 
   const pushNewTask = (task) => {
@@ -74,10 +86,12 @@ const ScrumBoard = (props) => {
       category: task.category,
       column: task.column
     }
-    let tempTasks = tasks ? tasks : [];
-    tempTasks.push(tempTask);
-    setTasks(tempTasks);
-    pushUpdatedProject();
+    Axios.post(props.api + `${project._id}/create/task/`, {task: tempTask}).then((temp) => {
+      let tempTasks = [...tasks];
+      tempTasks.push(tempTask);
+      setTasks(tempTasks);
+      pushUpdatedProject();
+    });
   }
 
   const addNewCategory = (cat) => {
