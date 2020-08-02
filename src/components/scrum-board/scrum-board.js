@@ -16,11 +16,11 @@ const ScrumBoard = (props) => {
 
   const pushUpdatedProject = () => {
     let tempProject = {...project};
-    tempProject.tasks = tasks;
-    tempProject.columns = columns;
-    tempProject.categories = categories;
+    tempProject.tasks = [...tasks];
+    tempProject.columns = [...columns];
+    tempProject.categories = [...categories];
     setProj(tempProject);
-    props.updateProjects(tempProject);
+    console.log(tempProject);
   }
 
   // Drag and Drop Handlers

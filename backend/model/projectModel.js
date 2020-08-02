@@ -46,7 +46,24 @@ const updateProjectInformation = (id, projectChanges) => {
         not change, there will not be a tasks key in the map of 
         key value pairs.
     */
-    let tasks = projectChanges.tasks.map(task => {
+    let tasks = [];
+    let categories = [];
+    let columns = [];
+    console.log(projectChanges.tasks);
+    for(const [index, task] of Object.entries(projectChanges.tasks)) {
+        console.log(`Index ${index} task inserted`);
+        task['_id'] = task._id ? task._id : mongoose.Types.ObjectId();
+        tasks.push(task);
+    }
+    for(const [index, category] of Object.entries(projectChanges.categories)) {
+        console.log(`Index ${index} category inserted`);
+        categories.push(category);
+    }
+    for(const [index, column] of Object.entries(projectChanges.columns)) {
+        console.log(`Index ${index} column inserted`);
+        columns.push(column);
+    }
+    /*let tasks = projectChanges.tasks ? projectChanges.tasks.products.map(task => {
         let newTask = {};
         newTask['_id'] = task._id ? task._id : mongoose.Types.ObjectId();
         newTask['title'] = task.title;
@@ -57,15 +74,15 @@ const updateProjectInformation = (id, projectChanges) => {
         newTask['modified'] = new Date();
         newTask['backlogged'] = task.backlogged;
         return newTask;
-    })
-    projectChanges.tasks = tasks;
+    }) : [];
+    projectChanges.tasks = tasks;*/
 
     let currentProject = Project.findByIdAndUpdate({_id: id}, 
     {
         title: projectChanges.title,
-        tasks: projectChanges.tasks,
-        columns: projectChanges.columns,
-        categories: projectChanges.categories
+        tasks: tasks,
+        columns: columns,
+        categories: categories
     });
     /*Object.keys(projectChanges).forEach((key, index) => {
         currentProject.key = projectChanges.key; 
