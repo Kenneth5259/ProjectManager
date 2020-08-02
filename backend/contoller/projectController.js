@@ -92,7 +92,7 @@ const deleteExistingTask = (req, res, next) => {
             res.status(200).json({
                 message: 'Task Deleted Successfully',
                 project: project
-            })
+            });
         } else {
             res.status(500).json({
                 message: 'Unable to Delete Task'
@@ -101,11 +101,30 @@ const deleteExistingTask = (req, res, next) => {
     });
 }
 
+const updateTaskColumn = (req, res, next) => {
+    let projectId = req.params.projectId;
+    let taskId = req.params.taskId;
+    let column = req.body.column;
+    ProjectModel.updateTaskColumn(projectId, taskId, column).then((project) =>  {
+        if(project) {
+            res.status(200).json({
+                message: 'Task Updated Successfully',
+                project: project
+            });
+        } else {
+            res.status(500).json({
+                message: 'Unable to Update Task'
+            });
+        }
+    })
+}
+
 module.exports ={
     findAll,
     findById,
     postUpdatedProject,
     postNewProject,
     createNewTask,
-    deleteExistingTask
+    deleteExistingTask,
+    updateTaskColumn
 }

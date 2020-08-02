@@ -132,6 +132,18 @@ const updateProjectInformation = (id, projectChanges) => {
 
 }
 
+const updateTaskColumn = (projectId, taskId, columnName) => {
+    console.log(columnName);
+    let project = Project.findOneAndUpdate(
+        {_id: projectId, "tasks._id": taskId}, {
+            $set: { 
+                "tasks.$.column": columnName 
+            }
+        }
+    )
+    return project;
+}
+
 /****** Delete Operations ******/
 
 const deleteTaskFromProject = (projectId, taskId) => {
@@ -150,10 +162,11 @@ const deleteTaskFromProject = (projectId, taskId) => {
 
 module.exports = {
     Project,
-    readAllProjects,
-    readProjectById,
     createNewProject,
     createNewTaskForProject,
+    readAllProjects,
+    readProjectById,
     updateProjectInformation,
+    updateTaskColumn,
     deleteTaskFromProject
 }
