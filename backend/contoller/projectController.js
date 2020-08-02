@@ -1,5 +1,4 @@
 const ProjectModel = require('../model/projectModel');
-const { Project } = require('../model/projectModel');
 
 const findAll = (req, res, next) => {
     
