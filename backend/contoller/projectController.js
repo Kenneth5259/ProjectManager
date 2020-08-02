@@ -67,7 +67,6 @@ const postNewProject = (req, res, next) => {
 const createNewTask = (req, res, next) => {
     let projectId = req.params.projectId;
     let task = req.body.task;
-    console.log(task);
     ProjectModel.addNewTaskToProject(projectId, task)
     .then((project) => {
         if(project) {

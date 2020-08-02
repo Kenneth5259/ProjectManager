@@ -103,14 +103,23 @@ const createNewProject = (project) => {
 
 const addNewTaskToProject = (projectId, task) => {
     task._id = mongoose.Types.ObjectId();
+    console.log(task);
     let project = Project.findByIdAndUpdate(
         {_id: projectId},
         {$push: {
             tasks: {
-                task
+                _id: task._id,
+                title: task.title,
+                description: task.description,
+                column: task.column,
+                category: task.category,
+                created: new Date(),
+                modified: new Date(),
+                backlogged: task.backlogged
             }
         }}
     );
+    return project;
 }
 
 const deleteTaskFromProject = (projectId, taskId) => {
