@@ -4,7 +4,7 @@ const { Project } = require('../model/projectModel');
 const findAll = (req, res, next) => {
     
     console.log('Pull all projects');
-    ProjectModel.findAllProjects().then(projects => {
+    ProjectModel.readAllProjects().then(projects => {
         console.log(projects);
         if(projects) {
             res.status(200).json({
@@ -19,7 +19,7 @@ const findAll = (req, res, next) => {
 
 const findById = (req, res, next) => {
     const id = req.params.id;
-    ProjectModel.findProjectById(id).then(project => {
+    ProjectModel.readProjectById(id).then(project => {
         if(project) {
             res.status(200).json({
                 message: 'Successfull Pull',
@@ -67,7 +67,7 @@ const postNewProject = (req, res, next) => {
 const createNewTask = (req, res, next) => {
     let projectId = req.params.projectId;
     let task = req.body.task;
-    ProjectModel.addNewTaskToProject(projectId, task)
+    ProjectModel.createNewTaskForProject(projectId, task)
     .then((project) => {
         if(project) {
             res.status(200).json({

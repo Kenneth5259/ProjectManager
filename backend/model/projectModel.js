@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 
+/****** Project Model ******/
+
 const Project = mongoose.model('Project', {
     title: String,
     description: {
@@ -30,13 +32,52 @@ const Project = mongoose.model('Project', {
     }]
 }, 'projects');
 
-const findAllProjects = () => {
+
+/****** Create Operations ******/
+
+const createNewProject = (project) => {
+    let newProject = new Project({
+        title: project.title,
+        description: project.description,
+        tasks: project.tasks,
+        columns: project.columns,
+        category: project.category
+    });
+    return newProject.save();
+}
+
+const createNewTaskForProject = (projectId, task) => {
+    task._id = mongoose.Types.ObjectId();
+    console.log(task);
+    let project = Project.findByIdAndUpdate(
+        {_id: projectId},
+        {$push: {
+            tasks: {
+                _id: task._id,
+                title: task.title,
+                description: task.description,
+                column: task.column,
+                category: task.category,
+                created: new Date(),
+                modified: new Date(),
+                backlogged: task.backlogged
+            }
+        }}
+    );
+    return project;
+}
+
+/****** Read Operations ******/
+
+const readAllProjects = () => {
     return Project.find();
 }
 
-const findProjectById = (id) => {
+const readProjectById = (id) => {
     return Project.findById(id);
 }
+
+/****** Update Operations ******/
 
 const updateProjectInformation = (id, projectChanges) => {
     /*
@@ -90,37 +131,8 @@ const updateProjectInformation = (id, projectChanges) => {
     return currentProject;
 
 }
-const createNewProject = (project) => {
-    let newProject = new Project({
-        title: project.title,
-        description: project.description,
-        tasks: project.tasks,
-        columns: project.columns,
-        category: project.category
-    });
-    return newProject.save();
-}
 
-const addNewTaskToProject = (projectId, task) => {
-    task._id = mongoose.Types.ObjectId();
-    console.log(task);
-    let project = Project.findByIdAndUpdate(
-        {_id: projectId},
-        {$push: {
-            tasks: {
-                _id: task._id,
-                title: task.title,
-                description: task.description,
-                column: task.column,
-                category: task.category,
-                created: new Date(),
-                modified: new Date(),
-                backlogged: task.backlogged
-            }
-        }}
-    );
-    return project;
-}
+/****** Delete Operations ******/
 
 const deleteTaskFromProject = (projectId, taskId) => {
     let project = Project.findByIdAndUpdate(
@@ -133,12 +145,15 @@ const deleteTaskFromProject = (projectId, taskId) => {
         );
     return project;
 }
+
+/****** Module Exports ******/
+
 module.exports = {
     Project,
-    findAllProjects,
-    findProjectById,
+    readAllProjects,
+    readProjectById,
     createNewProject,
+    createNewTaskForProject,
     updateProjectInformation,
-    addNewTaskToProject,
     deleteTaskFromProject
 }
