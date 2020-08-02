@@ -1,4 +1,5 @@
 const ProjectModel = require('../model/projectModel');
+const { Project } = require('../model/projectModel');
 
 const findAll = (req, res, next) => {
     
@@ -63,9 +64,28 @@ const postNewProject = (req, res, next) => {
     });
 }
 
+const deleteExistingTask = (req, res, next) => {
+    let projectId = req.params.projectId;
+    let taskId = req.params.taskId;
+    console.log(req.params);
+    ProjectModel.deleteTaskFromProject(projectId, taskId).then((project) => {
+        if(project) {
+            res.status(200).json({
+                message: 'Task Deleted Successfully',
+                project: project
+            })
+        } else {
+            res.status(500).json({
+                message: 'Unable to Delete Task'
+            });
+        }
+    });
+}
+
 module.exports ={
     findAll,
     findById,
     postUpdatedProject,
-    postNewProject
+    postNewProject,
+    deleteExistingTask
 }

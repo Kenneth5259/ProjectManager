@@ -9,6 +9,7 @@ router.get('/', ProjectController.findAll);
 
 router.post('/create/', ProjectController.postNewProject);
 router.post('/update/:id', ProjectController.postUpdatedProject)
+router.post('/delete/:projectId/task/:taskId', ProjectController.deleteExistingTask);
 
 
 

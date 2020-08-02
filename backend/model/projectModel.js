@@ -100,10 +100,23 @@ const createNewProject = (project) => {
     });
     return newProject.save();
 }
+
+const deleteTaskFromProject = (projectId, taskId) => {
+    let project = Project.findByIdAndUpdate(
+        {_id: projectId},
+        {$pull: {
+            tasks: {
+                _id: taskId
+            }
+        }}
+        );
+    return project;
+}
 module.exports = {
     Project,
     findAllProjects,
     findProjectById,
     createNewProject,
     updateProjectInformation,
+    deleteTaskFromProject
 }
