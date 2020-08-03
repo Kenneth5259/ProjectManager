@@ -2,7 +2,9 @@ import React from 'react';
 
 import Task from './task';
 
-let TaskHolder = (tasks, categories, onDragStart, completeTask, deleteTask) => {
+let TaskHolder = (tasks, categories, onDragStart, completeTask, deleteTask, filter) => {
+    let filterBool = (filter ==='*') ? false : true;
+
     if(tasks) {
       tasks = tasks.sort((task1, task2) => {
         return task1.category > task2.category ? 1 : -1;
@@ -24,21 +26,23 @@ let TaskHolder = (tasks, categories, onDragStart, completeTask, deleteTask) => {
             tasksHolder[task.column] = [];
           }
           if(task.backlogged === false) {
-          tasksHolder[task.column].push(
-              <Task 
-                key={task._id}
-                id={task._id}
-                title={task.title}
-                description={task.description}
-                draggable={true}
-                backgroundColor={backgroundColor}
-                onDragStart={onDragStart}
-                completeTask={completeTask}
-                deleteTask={deleteTask}
-
-              />
-          )
-          }
+            if(!filterBool || (task.category === filter)) {
+              tasksHolder[task.column].push(
+                <Task 
+                  key={task._id}
+                  id={task._id}
+                  title={task.title}
+                  description={task.description}
+                  draggable={true}
+                  backgroundColor={backgroundColor}
+                  onDragStart={onDragStart}
+                  completeTask={completeTask}
+                  deleteTask={deleteTask}
+                />
+            )
+            }
+            
+            }
         });
     }
     return tasksHolder;

@@ -13,6 +13,15 @@ const ScrumBoard = (props) => {
   const [tasks, setTasks] = useState(props.project.tasks);
   const [columns, setColumns] = useState(props.project.columns);
   const [categories, setCats] = useState(props.project.categories);
+  const [filter, setFilter] = useState('*');
+
+  const onCategoryClick = (cat) => {
+    if(filter === cat.title) {
+      setFilter('*');
+    } else {
+      setFilter(cat.title);
+    }
+  }
   
   //Parent Feedback
 
@@ -95,10 +104,13 @@ const ScrumBoard = (props) => {
   }
 
   const addNewCategory = (cat) => {
-    let tempCat = categories ? categories : [];
-    tempCat.push({title: cat.title, color: cat.color});
-    setCats(tempCat);
-    pushUpdatedProject();
+    let tempCat = [...categories];
+    Axios.post(props.api + `${project._id}/create/category/`, {category: cat})
+    .then((temp) => {
+      tempCat.push({title: cat.title, color: cat.color});
+      setCats(tempCat);
+      pushUpdatedProject();
+    });
   }
 
   const columnsHolder = columns ? columns.map( (column) => {
@@ -107,13 +119,13 @@ const ScrumBoard = (props) => {
           key={column}
           onDrop={onDrop}
           onDragOver={onDragOver}
-          tasksHolder={TaskHolder(tasks, categories, onDragStart, completeTask, deleteTask)}
+          tasksHolder={TaskHolder(tasks, categories, onDragStart, completeTask, deleteTask, filter)}
           column={column}
           newTask={pushNewTask}
         />
       )
   }) : null;
-  const categoryHolder = categories ? CategoryHolder(categories) : null;
+  const categoryHolder = categories ? CategoryHolder(categories, onCategoryClick) : null;
   if(columnsHolder) {
     columnsHolder.unshift((
       <div 
