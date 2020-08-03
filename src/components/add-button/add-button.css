@@ -1,0 +1,7 @@
+.add__button {
+    padding: 2rem;
+}
+.child {
+    width: 100%;
+    display: flex;
+}

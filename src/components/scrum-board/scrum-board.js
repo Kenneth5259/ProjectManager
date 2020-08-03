@@ -3,6 +3,7 @@ import TaskHolder from './task/task-holder';
 import CategoryHolder from './category-holder';
 import CreateNewCategory from './create-new-category/create-new-category';
 import Column from './column/column.js';
+import AddButton from '../add-button/add-button';
 import './scrum-board.css';
 import Axios from 'axios';
 
@@ -14,6 +15,8 @@ const ScrumBoard = (props) => {
   const [columns, setColumns] = useState(props.project.columns);
   const [categories, setCats] = useState(props.project.categories);
   const [filter, setFilter] = useState('*');
+
+
 
   const onCategoryClick = (cat) => {
     if(filter === cat.title) {
