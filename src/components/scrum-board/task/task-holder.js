@@ -2,7 +2,7 @@ import React from 'react';
 
 import Task from './task';
 
-let TaskHolder = (tasks, categories, onDragStart, completeTask, deleteTask, filter) => {
+let TaskHolder = (tasks, categories, onDragStart, completeTask, deleteTask, filter, projectId, forceRender) => {
     let filterBool = (filter ==='*') ? false : true;
 
     if(tasks) {
@@ -31,13 +31,16 @@ let TaskHolder = (tasks, categories, onDragStart, completeTask, deleteTask, filt
                 <Task 
                   key={task._id}
                   id={task._id}
+                  projectId={projectId}
                   title={task.title}
                   description={task.description}
+                  category={task.category}
                   draggable={true}
                   backgroundColor={backgroundColor}
                   onDragStart={onDragStart}
                   completeTask={completeTask}
                   deleteTask={deleteTask}
+                  forceRender={forceRender}
                 />
             )
             }

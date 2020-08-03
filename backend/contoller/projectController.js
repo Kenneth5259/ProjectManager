@@ -114,6 +114,24 @@ const updateTaskColumn = (req, res, next) => {
     })
 }
 
+const updateTaskInformation = (req, res, next) => {
+    console.log('Reached Controller Function from Router')
+    let projectId = req.params.projectId;
+    let task = req.body.task;
+    ProjectModel.updateTaskInformation(projectId, task).then((project) => {
+        if(project) {
+            res.status.json({
+                message: 'Changes Successful',
+                project: project
+            })
+        } else {
+            res.status(500).json({
+                message: 'Unable to Push Update'
+            })
+        }
+    })
+}
+
 module.exports ={
     findAll,
     findById,
@@ -122,5 +140,6 @@ module.exports ={
     createNewTask,
     createNewCategory,
     deleteExistingTask,
-    updateTaskColumn
+    updateTaskColumn,
+    updateTaskInformation
 }

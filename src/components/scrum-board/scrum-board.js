@@ -15,6 +15,7 @@ const ScrumBoard = (props) => {
   const [columns, setColumns] = useState(props.project.columns);
   const [categories, setCats] = useState(props.project.categories);
   const [filter, setFilter] = useState('*');
+  const [, forceRender] = useState({});
 
 
 
@@ -122,7 +123,7 @@ const ScrumBoard = (props) => {
           key={column}
           onDrop={onDrop}
           onDragOver={onDragOver}
-          tasksHolder={TaskHolder(tasks, categories, onDragStart, completeTask, deleteTask, filter)}
+          tasksHolder={TaskHolder(tasks, categories, onDragStart, completeTask, deleteTask, filter, project._id, forceRender)}
           column={column}
           newTask={pushNewTask}
         />

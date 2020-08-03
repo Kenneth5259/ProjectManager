@@ -12,6 +12,7 @@ router.post('/update/:id', ProjectController.postUpdatedProject);
 router.post('/:projectId/create/task/', ProjectController.createNewTask);
 router.post('/:projectId/create/category/', ProjectController.createNewCategory);
 router.post('/:projectId/update/task/:taskId/column/', ProjectController.updateTaskColumn);
+router.post('/:projectId/update/task/:taskId/edit/', ProjectController.updateTaskInformation);
 router.post('/:projectId/delete/task/:taskId', ProjectController.deleteExistingTask);
 
 

@@ -1,0 +1,27 @@
+.edit__button {
+    position: relative;
+    width: 100%;
+    margin: 1rem;
+    padding: 0;
+    display: block;
+    right: 0;
+}
+.edit__button>div{
+    margin: 0;
+}
+.edit__button__icon {
+    position: absolute;
+    top: 1rem;
+    right: 0.25rem;
+}
+.input__mode {
+    margin: 1rem;
+}
+.input__mode.task {
+    margin-top: 1rem;
+}
+.input__mode>textarea {
+    margin: 2rem 1rem;
+    width: 80%;
+    text-align: center;
+}
