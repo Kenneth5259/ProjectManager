@@ -1,5 +1,18 @@
 const ProjectModel = require('../model/projectModel');
 
+const creationCallback = (project, type, res) => {
+    if(project) {
+        res.status(200).json({
+            project: project,
+            message: `${type} Created Successfully`
+        })
+    } else {
+        res.status(500).json({
+            message: `${type} Not Created`
+        })
+    }
+}
+
 const findAll = (req, res, next) => {
     
     console.log('Pull all projects');
@@ -47,40 +60,23 @@ const postUpdatedProject = (req, res, next) => {
 }
 
 const postNewProject = (req, res, next) => {
+    let type = 'Project';
     let newProject = req.body.project;
-    ProjectModel.createNewProject(newProject).then((project) => {
-        if(project){
-            console.log('Returned Object: \n', project);
-            res.status(200).json({
-                message: 'Created Successfully',
-                project: project
-            })
-        } else {
-            res.status(500).json({
-                message: 'Project Creation Unsucessful'
-            })
-        }
-    });
+    ProjectModel.createNewProject(newProject).then((project) => creationCallback(project, type, res));
 }
 
 const createNewTask = (req, res, next) => {
     let projectId = req.params.projectId;
     let task = req.body.task;
-    ProjectModel.createNewTaskForProject(projectId, task)
-    .then((project) => {
-        if(project) {
-            res.status(200).json({
-                message: 'Task Created',
-                project: project
-            })
-        } else {
-            res.status(500).json({
-                message: 'Task Not Created'
-            })
-        }
-    })
+    let type = 'Task'
+    ProjectModel.createNewTaskForProject(projectId, task).then((project) => creationCallback(project, type, res));
+}
 
-
+const createNewCategory = (req, res, next) => {
+    let projectId = req.params.projectId;
+    let category = req.body.category;
+    let type = 'Category';
+    ProjectModel.createNewCategoryForProject(projectId, category).then((project) => creationCallback(project, type, res));
 }
 
 const deleteExistingTask = (req, res, next) => {
@@ -124,6 +120,7 @@ module.exports ={
     postUpdatedProject,
     postNewProject,
     createNewTask,
+    createNewCategory,
     deleteExistingTask,
     updateTaskColumn
 }

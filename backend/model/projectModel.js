@@ -67,6 +67,22 @@ const createNewTaskForProject = (projectId, task) => {
     return project;
 }
 
+const createNewCategoryForProject = (projectId, category) => {
+    category._id = mongoose.Types.ObjectId();
+    let project = Project.findByIdAndUpdate(
+        {_id: projectId},
+        {$push:{
+            categories: {
+                _id: category._id,
+                title: category.title,
+                color: category.color,
+                backlogged: false
+            }
+        }}
+    );
+    return project;
+}
+
 /****** Read Operations ******/
 
 const readAllProjects = () => {
@@ -164,6 +180,7 @@ module.exports = {
     Project,
     createNewProject,
     createNewTaskForProject,
+    createNewCategoryForProject,
     readAllProjects,
     readProjectById,
     updateProjectInformation,
